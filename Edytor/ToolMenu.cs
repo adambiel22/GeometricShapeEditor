@@ -38,7 +38,7 @@ namespace Edytor
             drawListView.Items.Add(item);
 
             item = new ListViewItem("Select");
-            item.Tag = new ToolSelect(scene, pictureBox);
+            item.Tag = new ToolSelect(scene, pictureBox, drawListView);
             drawListView.Items.Add(item);
 
             selectButton = select;
@@ -52,8 +52,11 @@ namespace Edytor
         private void DrawListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (activeTool != null) activeTool.Disactivate();
-            activeTool = drawListView.SelectedItems[0].Tag as Tool;
-            if (activeTool != null) activeTool.Activate();
+            if (drawListView.SelectedItems.Count != 0)
+            {
+                activeTool = drawListView.SelectedItems[0].Tag as Tool;
+                if (activeTool != null) activeTool.Activate();
+            }
         }
 
         private void pictureBox_Paint(object sender, PaintEventArgs e)

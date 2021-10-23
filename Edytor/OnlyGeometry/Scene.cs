@@ -31,6 +31,17 @@ namespace Edytor.OnlyGeometry
             }
         }
 
+        public ISelectable SelectShape(Point point)
+        {
+            foreach (var shape in polygons)
+            {
+                ISelectable selectable = shape.Select(point);
+                if (selectable != null)
+                    return selectable;
+            }
+            return null;
+        }
+
         private HashSet<Polygon> polygons;
     }
 }

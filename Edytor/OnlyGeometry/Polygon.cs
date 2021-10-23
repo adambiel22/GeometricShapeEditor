@@ -24,6 +24,11 @@ namespace Edytor.OnlyGeometry
             vertices.Add(vertex2);
             edges.Add(new Edge(vertex1, vertex2, this));
             edges.Add(new Edge(vertex2, vertex1, this));
+            vertex1.NextEdge = edges[0];
+            vertex1.PrevEdge = edges[1];
+            vertex2.NextEdge = edges[1];
+            vertex2.PrevEdge = edges[0];
+            parentScene = scene;
         }
 
         public void AddVertex(Point point)
@@ -31,6 +36,9 @@ namespace Edytor.OnlyGeometry
             PolygonVertex vertex = new PolygonVertex(point, this);
             Edge edge = new Edge(vertex, vertices[0], this);
             edges[^1].End = vertex;
+            vertex.NextEdge = edge;
+            vertex.PrevEdge = edges[^1];
+            vertices[0].PrevEdge = edge;
             vertices.Add(vertex);
             edges.Add(edge);
         }
