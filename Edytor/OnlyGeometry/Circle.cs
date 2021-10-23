@@ -21,7 +21,7 @@ namespace Edytor.OnlyGeometry
         }
         public Circle(Point mid, int r, Scene parentScene)
         {
-            MidPoint = new Vertex(mid);
+            //MidPoint = new Vertex(mid);
             R = r;
             ParentScene = parentScene;
         }

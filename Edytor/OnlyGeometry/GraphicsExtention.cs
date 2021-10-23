@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Edytor.OnlyGeometry;
 
-namespace Edytor.GeometryVisualization
+namespace Edytor.OnlyGeometry
 {
     public static class GraphicsExtention
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Edytor.Geometry;
+using Edytor.OnlyGeometry;
 
 namespace Edytor.Tools
 {
@@ -14,19 +14,31 @@ namespace Edytor.Tools
 
         public ToolPolygon(Scene s, PictureBox pb) : base(s, pb) { }
 
-        public override void OnMouseDown(object sender, MouseEventArgs e)
+        public override void Activate()
+        {
+            pictureBox.MouseDown += OnMouseDown;
+            pictureBox.MouseMove += OnMouseMove;
+        }
+
+        public override void Disactivate()
+        {
+            pictureBox.MouseDown -= OnMouseDown;
+            pictureBox.MouseMove -= OnMouseMove;
+        }
+
+        public void OnMouseDown(object sender, MouseEventArgs e)
         {
             if (MouseButtons.Left == e.Button)
             {
                 if (State == ToolState.Idle)
                 {
                     State = ToolState.InAction;
-                    polygon = new Polygon(new Edge(e.Location, e.Location));
+                    polygon = new Polygon(e.Location, e.Location, scene);
                     scene.AddShape(polygon);
                 }
                 else
                 {
-                    polygon.AddVertex(new Vertex(e.Location));
+                    polygon.AddVertex(e.Location);
                 }
             }
             else if (MouseButtons.Right == e.Button)
@@ -38,7 +50,7 @@ namespace Edytor.Tools
             }
         }
 
-        public override void OnMouseMove(object sender, MouseEventArgs e)
+        public void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (State == ToolState.InAction)
             {

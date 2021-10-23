@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Edytor.Geometry;
+using Edytor.OnlyGeometry;
 
 namespace Edytor.Tools
 {
     public abstract class Tool
     {
+        protected enum ToolState {
+            Idle,
+            InAction
+        }
+
         protected readonly Scene scene;
         protected readonly PictureBox pictureBox;
-        public enum ToolState
-        {
-            InAction,
-            Idle
-        }
+        protected ToolState State;
 
         public Tool(Scene s, PictureBox pb)
         {
@@ -28,10 +29,8 @@ namespace Edytor.Tools
             State = ToolState.Idle;
         }
 
-        public virtual void OnMouseDown(object sender, MouseEventArgs e) { }
-        public virtual void OnMouseMove(object sender, MouseEventArgs e) { }
-        public virtual void OnMouseUp(object sender, MouseEventArgs e) { }
+        public abstract void Activate();
 
-        public ToolState State { get; protected set; }
+        public abstract void Disactivate();
     }
 }

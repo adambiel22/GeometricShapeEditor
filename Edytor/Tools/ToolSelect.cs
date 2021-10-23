@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
-using Edytor.Geometry;
+using Edytor.OnlyGeometry;
 
 namespace Edytor.Tools
 {
@@ -15,31 +15,31 @@ namespace Edytor.Tools
         private Point previousPoint;
         public ToolSelect(Scene s, PictureBox pb) : base(s, pb) { }
 
-        public override void OnMouseDown(object sender, MouseEventArgs e)
+        public void OnMouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                IDrawable drawable = scene.Hit(e.Location);
-                if (drawable != null)
-                {
-                    selectedShape = drawable;
-                    previousPoint = e.Location;
-                    State = ToolState.InAction;
-                }
-            }
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    //IDrawable drawable = scene.Hit(e.Location);
+            //    if (drawable != null)
+            //    {
+            //        selectedShape = drawable;
+            //        previousPoint = e.Location;
+            //        State = ToolState.InAction;
+            //    }
+            //}
         }
 
-        public override void OnMouseMove(object sender, MouseEventArgs e)
+        public void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (State == ToolState.InAction)
             {
-                selectedShape.Move(previousPoint, e.Location);
+                //selectedShape.Move(previousPoint, e.Location);
                 previousPoint = e.Location;
                 pictureBox.Invalidate();
             }
         }
 
-        public override void OnMouseUp(object sender, MouseEventArgs e)
+        public void OnMouseUp(object sender, MouseEventArgs e)
         {
             if (State == ToolState.InAction)
             {
@@ -51,10 +51,20 @@ namespace Edytor.Tools
         {
             if (selectedShape != null)
             {
-                selectedShape.Delete();
+                //selectedShape.Delete();
                 selectedShape = null;
                 pictureBox.Invalidate();
             }
+        }
+
+        public override void Activate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Disactivate()
+        {
+            throw new NotImplementedException();
         }
     }
 }

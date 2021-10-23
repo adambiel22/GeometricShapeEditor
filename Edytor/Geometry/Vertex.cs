@@ -45,7 +45,7 @@ namespace Edytor.Geometry
 
         public void Delete()
         {
-            Polygon.verices.Remeve();
+            //Polygon.verices.Remeve();
         }
     }
 }

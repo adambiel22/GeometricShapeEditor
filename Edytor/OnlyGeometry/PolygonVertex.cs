@@ -23,5 +23,10 @@ namespace Edytor.OnlyGeometry
             ParentPolygon = polygon;
         }
 
+        public override void Delete()
+        {
+            IsSelected = false;
+            ParentPolygon.DeleteVertex(this);
+        }
     }
 }

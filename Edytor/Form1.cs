@@ -19,7 +19,7 @@ namespace Edytor
         public Form1()
         {
             InitializeComponent();
-            toolMenu = new ToolMenu(pictureBox, polygonButton, circleButton, selectButton);
+            toolMenu = new ToolMenu(pictureBox, selectButton, drawListView);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Edytor.GeometryVisualization
+namespace Edytor.OnlyGeometry
 {
     public interface IDrawable
     {
