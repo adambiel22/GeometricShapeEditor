@@ -9,5 +9,9 @@ namespace Edytor.OnlyGeometry
 {
     public class Scene
     {
+        public void DeleteShape(Polygon Delete)
+        {
+
+        }
     }
 }

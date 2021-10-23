@@ -10,17 +10,33 @@ namespace Edytor.OnlyGeometry
     public class Polygon
     {
 
-        private List<Edge> edges { get; set; }
-        private List<PolygonVertex> vertices { get; set; }
-
         public int VerticesCount => vertices.Count;
 
-        public Polygon(Point p1, Point p2)
+        public Polygon(Point p1, Point p2, Scene scene)
         {
             edges = new List<Edge>();
             vertices = new List<PolygonVertex>();
-            vertices.Add(new PolygonVertex(p1, this));
-            vertices.Add(new PolygonVertex(p2, this));
+            PolygonVertex vertex1 = new PolygonVertex(p1, this);
+            PolygonVertex vertex2 = new PolygonVertex(p1, this);
+            vertices.Add(vertex1);
+            vertices.Add(vertex2);
+            edges.Add(new Edge(vertex1, vertex2, this));
+            edges.Add(new Edge(vertex2, vertex1, this));
         }
+
+        public void DeleteVertex(PolygonVertex polygonVertex)
+        {
+            if (VerticesCount == 2)
+            {
+                parentScene.DeleteShape(this);
+            }
+            polygonVertex.PrevEdge.End = polygonVertex.NextEdge.End;
+            edges.Remove(polygonVertex.NextEdge);
+            vertices.Remove(polygonVertex);            
+        }
+
+        protected Scene parentScene;
+        protected List<Edge> edges;
+        protected List<PolygonVertex> vertices;
     }
 }
