@@ -9,23 +9,23 @@ using System.Drawing;
 
 namespace Edytor.Relations
 {
-    public class RelaetionMover
+    public class RelationMover
     { 
-        public bool MoveSetOfPolygonVericies(List<PolygonVertex> polygonVertices, Point p1, Point p2) //zbiór wierzchołków oraz typ przesunięcia
+        public static bool MoveSetOfPolygonVericies(List<PolygonVertex> polygonVertices, Point p1, Point p2) //zbiór wierzchołków oraz typ przesunięcia
         {
             Stack<IRelation> S = new Stack<IRelation>();
             foreach (PolygonVertex polygonVertex in polygonVertices)
             {
-                polygonVertex.Move(p1, p2);
-                if (!polygonVertex.NextEdge.Relation.IsRelation() && !S.Contains(polygonVertex.NextEdge.Relation))
+                GeometryOperations.AddVectorToVertex(polygonVertex, p1, p2);
+                if (!polygonVertex.NextEdge.IsRelationFullfiled() && !S.Contains(polygonVertex.NextEdge.Relation))
                     S.Push(polygonVertex.NextEdge.Relation);
-                if (!polygonVertex.PrevEdge.Relation.IsRelation() && !S.Contains(polygonVertex.PrevEdge.Relation))
+                if (!polygonVertex.PrevEdge.IsRelationFullfiled() && !S.Contains(polygonVertex.PrevEdge.Relation))
                     S.Push(polygonVertex.PrevEdge.Relation);
             }
             return Recursion(polygonVertices, S);
         }
 
-        public bool Recursion(List<PolygonVertex> Z, Stack<IRelation> S)
+        public static bool Recursion(List<PolygonVertex> Z, Stack<IRelation> S)
         {
             if (S.Count == 0) return true;
             IRelation relation = S.Pop();

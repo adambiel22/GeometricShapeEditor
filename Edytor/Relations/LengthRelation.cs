@@ -5,19 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Drawing.Text;
 
 namespace Edytor.Relations
 {
-    public class LenghtRelation : IRelation
+    public class LengthRelation : IRelation
     {
         public Edge RelatedEdge;
-        public LenghtRelation(Edge edge, int len)
+        public LengthRelation(Edge edge, int len)
         {
-            lenght = len;
+            length = len;
+            RelatedEdge = edge;
         }
         public bool IsRelation()
         {
-            return lenght * lenght == GeometryOperations.DistanceSquare(RelatedEdge.Start, RelatedEdge.End);
+            return length == RelatedEdge.Length;
         }
         public bool RecursivelyRepareRelation(
             List<PolygonVertex> Z,
@@ -29,8 +31,8 @@ namespace Edytor.Relations
             //jeśli nie to go popraw, sprawdź, czy naruszona została jakaś relacja dla sąsiednich krawędzi,
             {
                 Z.Add(RelatedEdge.Start);
-                GeometryOperations.SetEdgeLenght(RelatedEdge, lenght, true);
-                if (!RelatedEdge.Start.PrevEdge.Relation.IsRelation())
+                GeometryOperations.SetEdgeLength(RelatedEdge, length, true);
+                if (!RelatedEdge.Start.PrevEdge.IsRelationFullfiled())
                 {
                     S.Push(RelatedEdge.Start.PrevEdge.Relation);
                 }
@@ -40,18 +42,25 @@ namespace Edytor.Relations
             {
                 Z.Add(RelatedEdge.End);
                 int realDistance = GeometryOperations.Distance(RelatedEdge.Start, RelatedEdge.End);
-                GeometryOperations.SetEdgeLenght(RelatedEdge, lenght, false);
-                if (!RelatedEdge.End.NextEdge.Relation.IsRelation())
+                GeometryOperations.SetEdgeLength(RelatedEdge, length, false);
+                if (!RelatedEdge.End.NextEdge.IsRelationFullfiled())
                 {
                     S.Push(RelatedEdge.End.NextEdge.Relation);
                 }
                 if (recursiveFunction(Z, S)) return true;
             }
-
             return false;
             
         }
 
-        private readonly int lenght;
+        public void Draw(Graphics g)
+        {
+            g.DrawString(length.ToString(),
+                new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
+                new SolidBrush(Color.Black),
+                GeometryOperations.EdgeMiddle(RelatedEdge));
+        }
+
+        private readonly int length;
     }
 }

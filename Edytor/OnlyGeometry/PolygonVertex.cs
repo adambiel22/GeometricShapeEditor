@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Edytor.Relations;
 
 namespace Edytor.OnlyGeometry
 {
@@ -27,6 +28,11 @@ namespace Edytor.OnlyGeometry
         {
             IsSelected = false;
             ParentPolygon.DeleteVertex(this);
+        }
+
+        public override void Move(Point start, Point end)
+        {
+            RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex> { this }, start, end);
         }
     }
 }

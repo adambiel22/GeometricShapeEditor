@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Edytor.Relations;
 
 namespace Edytor.OnlyGeometry
 {
@@ -24,7 +25,7 @@ namespace Edytor.OnlyGeometry
             Y = y;
         }
 
-        public void Move(Point start, Point end)
+        public virtual void Move(Point start, Point end)
         {
             X += end.X - start.X;
             Y += end.Y - start.Y;

@@ -44,6 +44,27 @@ namespace Edytor.OnlyGeometry
             edges.Add(edge);
         }
 
+        public void AddVertex(int index, Point point)
+        {
+            PolygonVertex vertex = new PolygonVertex(point, this);
+            Edge edge = new Edge(vertex, vertices[index % VerticesCount], this);
+            edges[index - 1].End = vertex;
+            vertex.NextEdge = edge;
+            vertex.PrevEdge = edges[index - 1];
+            vertices[index % VerticesCount].PrevEdge = edge;
+            vertices.Insert(index, vertex);
+            edges.Insert(index, edge);
+        }
+
+        public void SplitEdge(Edge edge)
+        {
+            int index = edges.IndexOf(edge);
+            if (index < 0) return;
+            edge.SetRelation(null);
+            AddVertex(index + 1,
+                GeometryOperations.EdgeMiddle(edge));
+        }
+
         public void DeleteVertex(PolygonVertex polygonVertex)
         {
             if (VerticesCount == 2)
@@ -51,6 +72,7 @@ namespace Edytor.OnlyGeometry
                 parentScene.DeleteShape(this);
             }
             polygonVertex.PrevEdge.End = polygonVertex.NextEdge.End;
+            polygonVertex.NextEdge.End.PrevEdge = polygonVertex.PrevEdge;
             edges.Remove(polygonVertex.NextEdge);
             vertices.Remove(polygonVertex);            
         }
@@ -80,6 +102,7 @@ namespace Edytor.OnlyGeometry
                     return selectable;
                 }
             }
+            if (vertices.Count == 2) return null;
             var polygon = new GraphicsPath();
             List<Point> points = new List<Point>();
             foreach (var vertex in vertices)

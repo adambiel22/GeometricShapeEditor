@@ -7,7 +7,7 @@ using Edytor.OnlyGeometry;
 
 namespace Edytor.Relations
 {
-    public interface IRelation
+    public interface IRelation : IDrawable
     {
         public bool IsRelation();
         public bool RecursivelyRepareRelation(

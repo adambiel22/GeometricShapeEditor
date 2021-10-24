@@ -13,7 +13,7 @@ namespace Edytor.Geometry
         {
             None,
             FixedLength,
-            LenghtTheSameAs
+            LengthTheSameAs
         }
 
         public Vertex Start { get; set; }

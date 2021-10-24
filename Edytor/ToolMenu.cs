@@ -41,6 +41,14 @@ namespace Edytor
             item.Tag = new ToolSelect(scene, pictureBox, drawListView);
             drawListView.Items.Add(item);
 
+            item = new ListViewItem("Split Edge");
+            item.Tag = new ToolSplitEdge(scene, pictureBox);
+            drawListView.Items.Add(item);
+
+            item = new ListViewItem("Length Relation");
+            item.Tag = new ToolLengthRelation(scene, pictureBox);
+            drawListView.Items.Add(item);
+
             selectButton = select;
             activeTool = null;
 

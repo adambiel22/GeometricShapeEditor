@@ -24,24 +24,34 @@ namespace Edytor.OnlyGeometry
             return (v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y);
         }
         
-        public static void SetEdgeLenght(Edge edge, int lenght, bool moveStart)
+        public static void SetEdgeLength(Edge edge, int length, bool moveStart)
         {
-            int distance = edge.Lenght;
+            int distance = edge.Length;
             if (moveStart)
             {
-                edge.Start.Move(
+                AddVectorToVertex(edge.Start,
                     new Point(0, 0),
-                    new Point((edge.End.X - edge.Start.X) * (lenght - distance) / distance,
-                        (edge.End.Y - edge.Start.Y) * (lenght - distance) / distance));
+                    new Point((edge.End.X - edge.Start.X) * (distance - length) / distance,
+                        (edge.End.Y - edge.Start.Y) * (distance - length) / distance));
             }
             else
             {
-                edge.End.Move(
+                AddVectorToVertex(edge.End,
                     new Point(0, 0),
-                    new Point((edge.Start.X - edge.End.X) * (lenght - distance) / distance,
-                        (edge.Start.Y - edge.End.Y) * (lenght - distance) / distance));
+                    new Point((edge.Start.X - edge.End.X) * (distance - length) / distance,
+                        (edge.Start.Y - edge.End.Y) * (distance - length) / distance));
             }
-            
+        }
+
+        public static Point EdgeMiddle(Edge edge)
+        {
+            return new Point((edge.Start.X + edge.End.X) / 2, (edge.Start.Y + edge.End.Y) / 2);
+        }
+
+        public static void AddVectorToVertex(Vertex vertex, Point start, Point end)
+        {
+            vertex.X += end.X - start.X;
+            vertex.Y += end.Y - start.Y;
         }
     }
 }
