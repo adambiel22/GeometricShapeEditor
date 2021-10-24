@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Edytor.OnlyGeometry
 {
-    public class Polygon : IDrawable, ISelectable
+    public class Polygon : IShape
     {
 
         public int VerticesCount => vertices.Count;
@@ -79,7 +80,16 @@ namespace Edytor.OnlyGeometry
                     return selectable;
                 }
             }
-            // czy trafiło w środek wielokąta
+            var polygon = new GraphicsPath();
+            List<Point> points = new List<Point>();
+            foreach (var vertex in vertices)
+            {
+                points.Add(new Point(vertex.X, vertex.Y));
+
+            }
+            polygon.AddPolygon(points.ToArray());
+            if (polygon.IsVisible(point))
+                return this;
             return null;
         }
 

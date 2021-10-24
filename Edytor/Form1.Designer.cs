@@ -31,9 +31,9 @@ namespace Edytor
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.selectButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.drawListView = new System.Windows.Forms.ListView();
-            this.selectButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -57,6 +57,15 @@ namespace Edytor
             this.panel1.Size = new System.Drawing.Size(244, 422);
             this.panel1.TabIndex = 1;
             // 
+            // selectButton
+            // 
+            this.selectButton.Location = new System.Drawing.Point(6, 202);
+            this.selectButton.Name = "selectButton";
+            this.selectButton.Size = new System.Drawing.Size(94, 29);
+            this.selectButton.TabIndex = 1;
+            this.selectButton.Text = "Select";
+            this.selectButton.UseVisualStyleBackColor = true;
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.drawListView);
@@ -78,15 +87,6 @@ namespace Edytor
             this.drawListView.Size = new System.Drawing.Size(226, 154);
             this.drawListView.TabIndex = 0;
             this.drawListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // selectButton
-            // 
-            this.selectButton.Location = new System.Drawing.Point(6, 202);
-            this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(94, 29);
-            this.selectButton.TabIndex = 1;
-            this.selectButton.Text = "Select";
-            this.selectButton.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

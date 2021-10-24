@@ -10,17 +10,18 @@ namespace Edytor.Tools
 {
     public class ToolCircle : Tool
     {
-        private Circle circle;
         public ToolCircle(Scene s, PictureBox pb) : base(s, pb) { }
 
         public override void Activate()
         {
-            throw new NotImplementedException();
+            pictureBox.MouseDown += OnMouseDown;
+            pictureBox.MouseMove += OnMouseMove;
         }
 
         public override void Disactivate()
         {
-            throw new NotImplementedException();
+            pictureBox.MouseDown -= OnMouseDown;
+            pictureBox.MouseMove -= OnMouseMove;
         }
 
         public void OnMouseDown(object sender, MouseEventArgs e)
@@ -30,8 +31,8 @@ namespace Edytor.Tools
                 if (State == ToolState.Idle)
                 {
                     State = ToolState.InAction;
-                    //circle = new Circle(e.Location, 1);
-                    //scene.AddShape(circle);
+                    circle = new Circle(e.Location, 1, scene);
+                    scene.AddShape(circle);
                 }
                 else
                 {
@@ -44,9 +45,11 @@ namespace Edytor.Tools
         {
             if (State == ToolState.InAction)
             {
-                circle.R = (int)Math.Sqrt((e.X - circle.MidPoint.X) * (e.X - circle.MidPoint.X) + (e.Y - circle.MidPoint.Y) * (e.Y - circle.MidPoint.Y));
+                circle.R = (int)Math.Sqrt((e.X - circle.Mid.X) * (e.X - circle.Mid.X) + (e.Y - circle.Mid.Y) * (e.Y - circle.Mid.Y));
                 pictureBox.Invalidate();
             }
         }
+
+        private Circle circle;
     }
 }

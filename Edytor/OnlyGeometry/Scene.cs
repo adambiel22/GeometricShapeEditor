@@ -11,21 +11,21 @@ namespace Edytor.OnlyGeometry
     {
         public Scene()
         {
-            polygons = new HashSet<Polygon>();
+            shapes = new HashSet<IShape>();
         }
-        public void DeleteShape(Polygon polygon)
+        public void DeleteShape(IShape shape)
         {
-            polygons.Remove(polygon);
+            shapes.Remove(shape);
         }
 
-        public void AddShape(Polygon polygon)
+        public void AddShape(IShape shape)
         {
-            polygons.Add(polygon);
+            shapes.Add(shape);
         }
 
         public void Draw(Graphics g)
         {
-            foreach (var shape in polygons)
+            foreach (var shape in shapes)
             {
                 shape.Draw(g);
             }
@@ -33,7 +33,7 @@ namespace Edytor.OnlyGeometry
 
         public ISelectable SelectShape(Point point)
         {
-            foreach (var shape in polygons)
+            foreach (var shape in shapes)
             {
                 ISelectable selectable = shape.Select(point);
                 if (selectable != null)
@@ -42,6 +42,6 @@ namespace Edytor.OnlyGeometry
             return null;
         }
 
-        private HashSet<Polygon> polygons;
+        private HashSet<IShape> shapes;
     }
 }

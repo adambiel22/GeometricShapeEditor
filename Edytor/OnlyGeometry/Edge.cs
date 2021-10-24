@@ -28,7 +28,18 @@ namespace Edytor.OnlyGeometry
 
         public ISelectable Select(Point point)
         {
-            throw new NotImplementedException();
+            //int a = (Start.Y - End.Y) / (Start.X - End.X);
+            //int b = Start.Y - Start.X * a;
+            //int x = a * point.Y + point.X - a * b / (a * a + 1);
+            //int y = (point.Y * a * a + a * point.X - a * a * b) / (a * a + 1) + b;
+            //if ( <= x)
+            if (point.X >= Math.Min(Start.X, End.X) - 4 && point.X <= Math.Max(Start.X, End.X) + 4 &&
+                point.Y >= Math.Min(Start.Y, End.Y) - 4 && point.Y <= Math.Max(Start.Y, End.Y) + 4 &&
+                Math.Abs((Start.Y - End.Y) * point.X + (End.X - Start.X) * point.Y + Start.X * (End.Y - Start.Y) - Start.Y * (End.X - Start.X)) /
+                Math.Sqrt((Start.Y - End.Y) * (Start.Y - End.Y) + (End.X - Start.X) * (End.X - Start.X)) <= 5)
+                return this;
+            return null;
+
         }
 
         public void Delete()

@@ -31,7 +31,7 @@ Akcja przesunięcia zbioru wierzchołków(W - zbiór wierzchołków, v - wektor 
 	Rozważ wszystkie krawędzie "e", które zawierają pewien wierzchołek ze zbioru W:
 		Jeśli relacja krawędzi e nie jest spełniona, to wrzuć krawędź "e" na stos S.
 	Dopóki stos S nie jest pusty:
-		e = S.Pop();
+		e = S.Pop(); e.relation.Napraw(Z, S)
 		Jeśli relacja e to "zadana długość krawędzi":
 			Jeśli istnieje wierzchołek w "e" (oznaczmy go "w"), który nie jest w "Z",
 				Napraw "w", aby została spełniona relacja.
@@ -42,7 +42,7 @@ Akcja przesunięcia zbioru wierzchołków(W - zbiór wierzchołków, v - wektor 
 		W przeciwnym wypadku, jeśli relacja e to "równa długość krawędzi"
 			Jeśli istnieje wierzchołek w "e" lub w krawędzi, która jest w relacji z "e" (oznaczmy go "w"), który nie jest w "Z", to
 				Napraw w, aby została spełniona relacja.
-				Dodaj "w" do "Z".
+				Dodaj "w" do "Z"
 				Jeśli istnieje krawędź, która zawiera "w", a dla której nie jest spełniona relacja, to dodaj tę krawędź na stos S.
 			W przeciwnym wypadku:
 				przywróć sytuację do początkowej i zwróć, że się nie da wykonać akcji.	

@@ -14,6 +14,11 @@ namespace Edytor.OnlyGeometry
             return (int)Math.Sqrt((v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y));
         }
 
+        public static int Distance(Point v1, Point v2)
+        {
+            return (int)Math.Sqrt((v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y));
+        }
+
         public static int DistanceSquare(Vertex v1, Vertex v2)
         {
             return (v1.X - v2.X) * (v1.X - v2.X) + (v1.Y - v2.Y) * (v1.Y - v2.Y);
