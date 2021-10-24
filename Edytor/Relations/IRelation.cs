@@ -14,5 +14,6 @@ namespace Edytor.Relations
             List<PolygonVertex> Z,
             Stack<IRelation> S,
             Func<List<PolygonVertex>, Stack<IRelation>, bool> recursiveFunction);
+        public void DisposeRelation();
     }
 }

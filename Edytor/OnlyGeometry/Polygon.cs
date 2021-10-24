@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Edytor.Relations;
 
 namespace Edytor.OnlyGeometry
 {
@@ -60,7 +61,8 @@ namespace Edytor.OnlyGeometry
         {
             int index = edges.IndexOf(edge);
             if (index < 0) return;
-            edge.SetRelation(null);
+            if (edge.Relation != null)
+                edge.Relation.DisposeRelation();
             AddVertex(index + 1,
                 GeometryOperations.EdgeMiddle(edge));
         }
@@ -72,9 +74,13 @@ namespace Edytor.OnlyGeometry
                 parentScene.DeleteShape(this);
             }
             polygonVertex.PrevEdge.End = polygonVertex.NextEdge.End;
+            if (polygonVertex.PrevEdge.Relation != null)
+                polygonVertex.PrevEdge.Relation.DisposeRelation();
             polygonVertex.NextEdge.End.PrevEdge = polygonVertex.PrevEdge;
+            if (polygonVertex.NextEdge.Relation != null)
+                polygonVertex.NextEdge.Relation.DisposeRelation();
             edges.Remove(polygonVertex.NextEdge);
-            vertices.Remove(polygonVertex);            
+            vertices.Remove(polygonVertex);
         }
 
         public void MoveVertex(int i, Point p)
@@ -118,15 +124,17 @@ namespace Edytor.OnlyGeometry
 
         public void Delete()
         {
+            foreach (Edge edge in edges)
+            {
+                if (edge.Relation != null)
+                    edge.Relation.DisposeRelation();
+            }
             parentScene.DeleteShape(this);
         }
 
         public void Move(Point p1, Point p2)
         {
-            foreach (var vertex in vertices)
-            {
-                vertex.Move(p1, p2);
-            }
+            RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex>(vertices), p1, p2);
         }
 
         public void Draw(Graphics g)

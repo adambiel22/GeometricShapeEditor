@@ -57,10 +57,10 @@ namespace Edytor.OnlyGeometry
             }
         }
 
-        public void SetRelation(IRelation relation)
+        public void SetRelation(IRelation relation, bool ifRepare = true)
         {
             Relation = relation;
-            if (relation == null) return;
+            if (relation == null || !ifRepare) return;
             Stack<IRelation> S = new Stack<IRelation>();
             S.Push(relation);
             RelationMover.Recursion(new List<PolygonVertex>(), S);

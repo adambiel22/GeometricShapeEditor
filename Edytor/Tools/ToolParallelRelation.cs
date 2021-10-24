@@ -9,12 +9,11 @@ using Edytor.Relations;
 
 namespace Edytor.Tools
 {
-    public class ToolLengthRelation : Tool
+    public class ToolParallelRelation : Tool
     {
-        public ToolLengthRelation(Scene s, PictureBox pb) : base(s, pb)
+        public ToolParallelRelation(Scene s, PictureBox pb) : base(s, pb)
         {
         }
-
         public override void Activate()
         {
             pictureBox.MouseDown += OnMouseDown;
@@ -30,18 +29,24 @@ namespace Edytor.Tools
             Edge edge = scene.SelectShape(e.Location) as Edge;
             if (edge != null && edge.Relation == null)
             {
-                LengthDialog dialog = new LengthDialog(edge.Length);
-                dialog.ShowDialog(pictureBox);
-                if (dialog.DialogResult == DialogResult.OK)
+                if (firstSelectedEdge == null)
                 {
-                    relation = new LengthRelation(edge, dialog.Value);
+                    firstSelectedEdge = edge;
+                }
+                else
+                {
+                    relation = new ParallelRelation(firstSelectedEdge, edge);
+                    firstSelectedEdge.SetRelation(relation, false);
                     edge.SetRelation(relation, true);
+                    firstSelectedEdge = null;
                     pictureBox.Invalidate();
                 }
-                
+
             }
         }
 
-        private LengthRelation relation;
+        private ParallelRelation relation;
+        private Edge firstSelectedEdge;
+
     }
 }

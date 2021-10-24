@@ -32,8 +32,10 @@ namespace Edytor.Relations
             {
                 Z.Add(RelatedEdge.Start);
                 GeometryOperations.SetEdgeLength(RelatedEdge, length, true);
-                if (!RelatedEdge.Start.PrevEdge.IsRelationFullfiled())
+                if (!RelatedEdge.Start.PrevEdge.IsRelationFullfiled() &&
+                    !S.Contains(RelatedEdge.Start.PrevEdge.Relation))
                 {
+                    
                     S.Push(RelatedEdge.Start.PrevEdge.Relation);
                 }
                 if (recursiveFunction(Z, S)) return true;
@@ -43,7 +45,8 @@ namespace Edytor.Relations
                 Z.Add(RelatedEdge.End);
                 int realDistance = GeometryOperations.Distance(RelatedEdge.Start, RelatedEdge.End);
                 GeometryOperations.SetEdgeLength(RelatedEdge, length, false);
-                if (!RelatedEdge.End.NextEdge.IsRelationFullfiled())
+                if (!RelatedEdge.End.NextEdge.IsRelationFullfiled() &&
+                    !S.Contains(RelatedEdge.End.NextEdge.Relation))
                 {
                     S.Push(RelatedEdge.End.NextEdge.Relation);
                 }
@@ -59,6 +62,12 @@ namespace Edytor.Relations
                 new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
                 new SolidBrush(Color.Black),
                 GeometryOperations.EdgeMiddle(RelatedEdge));
+        }
+
+        public void DisposeRelation()
+        {
+            RelatedEdge.SetRelation(null);
+            RelatedEdge = null;
         }
 
         private readonly int length;

@@ -49,6 +49,14 @@ namespace Edytor
             item.Tag = new ToolLengthRelation(scene, pictureBox);
             drawListView.Items.Add(item);
 
+            item = new ListViewItem("The Same Length Relation");
+            item.Tag = new ToolTheSameLengthRelation(scene, pictureBox);
+            drawListView.Items.Add(item);
+
+            item = new ListViewItem("Parallel Relation");
+            item.Tag = new ToolParallelRelation(scene, pictureBox);
+            drawListView.Items.Add(item);
+
             selectButton = select;
             activeTool = null;
 

@@ -9,17 +9,16 @@ using System.Threading.Tasks;
 
 namespace Edytor.Relations
 {
-    public class TheSameLengthRelation : IRelation
+    public class ParallelRelation : IRelation
     {
         public Edge RelatedEdge1; //public czy private??
         public Edge RelatedEdge2;
 
-        public TheSameLengthRelation(Edge e1, Edge e2)
+        public ParallelRelation(Edge e1, Edge e2)
         {
             RelatedEdge1 = e1;
             RelatedEdge2 = e2;
         }
-
         public void DisposeRelation()
         {
             RelatedEdge1.SetRelation(null);
@@ -30,11 +29,11 @@ namespace Edytor.Relations
 
         public void Draw(Graphics g)
         {
-            g.DrawString(RelatedEdge1.Length.ToString(),
-                new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
-                new SolidBrush(Color.Black),
-                GeometryOperations.EdgeMiddle(RelatedEdge1));
-            g.DrawString(RelatedEdge1.Length.ToString(),
+            g.DrawString("||",
+                 new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
+                 new SolidBrush(Color.Black),
+                 GeometryOperations.EdgeMiddle(RelatedEdge1));
+            g.DrawString("||",
                 new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
                 new SolidBrush(Color.Black),
                 GeometryOperations.EdgeMiddle(RelatedEdge2));
@@ -42,7 +41,8 @@ namespace Edytor.Relations
 
         public bool IsRelation()
         {
-            return RelatedEdge1.Length == RelatedEdge2.Length;
+            return (RelatedEdge1.Start.Y - RelatedEdge1.End.Y) * (RelatedEdge2.End.X - RelatedEdge2.Start.X) ==
+                (RelatedEdge2.Start.Y - RelatedEdge2.End.Y) * (RelatedEdge1.End.X - RelatedEdge1.Start.X);
         }
 
         public bool RecursivelyRepareRelation(List<PolygonVertex> Z, Stack<IRelation> S, Func<List<PolygonVertex>, Stack<IRelation>, bool> recursiveFunction)
@@ -50,7 +50,10 @@ namespace Edytor.Relations
             if (!Z.Contains(RelatedEdge1.Start))
             {
                 Z.Add(RelatedEdge1.Start);
-                GeometryOperations.SetEdgeLength(RelatedEdge1, RelatedEdge2.Length, true);
+                GeometryOperations.SetEdgeDirection(
+                    RelatedEdge1,
+                    RelatedEdge2,
+                    true);
                 bool isPushed = !RelatedEdge1.Start.PrevEdge.IsRelationFullfiled();
                 if (isPushed)
                 {
@@ -66,7 +69,10 @@ namespace Edytor.Relations
             if (!Z.Contains(RelatedEdge2.Start))
             {
                 Z.Add(RelatedEdge2.Start);
-                GeometryOperations.SetEdgeLength(RelatedEdge2, RelatedEdge1.Length, true);
+                GeometryOperations.SetEdgeDirection(
+                    RelatedEdge2,
+                    RelatedEdge1,
+                    true);
                 bool isPushed = !RelatedEdge2.Start.PrevEdge.IsRelationFullfiled();
                 if (isPushed)
                 {
@@ -82,7 +88,10 @@ namespace Edytor.Relations
             if (!Z.Contains(RelatedEdge1.End))
             {
                 Z.Add(RelatedEdge1.End);
-                GeometryOperations.SetEdgeLength(RelatedEdge1, RelatedEdge2.Length, false);
+                GeometryOperations.SetEdgeDirection(
+                    RelatedEdge1,
+                    RelatedEdge2,
+                    false);
                 bool isPushed = !RelatedEdge1.End.NextEdge.IsRelationFullfiled();
                 if (isPushed)
                 {
@@ -98,7 +107,10 @@ namespace Edytor.Relations
             if (!Z.Contains(RelatedEdge2.End))
             {
                 Z.Add(RelatedEdge2.End);
-                GeometryOperations.SetEdgeLength(RelatedEdge2, RelatedEdge1.Length, false);
+                GeometryOperations.SetEdgeDirection(
+                    RelatedEdge2,
+                    RelatedEdge1,
+                    false);
                 bool isPushed = !RelatedEdge2.End.NextEdge.IsRelationFullfiled();
                 if (isPushed)
                 {

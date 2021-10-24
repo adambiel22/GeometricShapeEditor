@@ -9,9 +9,9 @@ using Edytor.Relations;
 
 namespace Edytor.Tools
 {
-    public class ToolLengthRelation : Tool
+    class ToolTheSameLengthRelation : Tool
     {
-        public ToolLengthRelation(Scene s, PictureBox pb) : base(s, pb)
+        public ToolTheSameLengthRelation(Scene s, PictureBox pb) : base(s, pb)
         {
         }
 
@@ -30,18 +30,23 @@ namespace Edytor.Tools
             Edge edge = scene.SelectShape(e.Location) as Edge;
             if (edge != null && edge.Relation == null)
             {
-                LengthDialog dialog = new LengthDialog(edge.Length);
-                dialog.ShowDialog(pictureBox);
-                if (dialog.DialogResult == DialogResult.OK)
+                if (firstSelectedEdge == null)
                 {
-                    relation = new LengthRelation(edge, dialog.Value);
+                    firstSelectedEdge = edge;
+                }
+                else
+                {
+                    relation = new TheSameLengthRelation(firstSelectedEdge, edge);
+                    firstSelectedEdge.SetRelation(relation, false);
                     edge.SetRelation(relation, true);
+                    firstSelectedEdge = null;
                     pictureBox.Invalidate();
                 }
-                
+
             }
         }
 
-        private LengthRelation relation;
+        private TheSameLengthRelation relation;
+        private Edge firstSelectedEdge;
     }
 }
