@@ -31,9 +31,10 @@ namespace Edytor
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tipLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.drawListView = new System.Windows.Forms.ListView();
-            this.tipLabel = new System.Windows.Forms.Label();
+            this.antiCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -50,6 +51,7 @@ namespace Edytor
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.antiCheckBox);
             this.panel1.Controls.Add(this.tipLabel);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(945, 12);
@@ -57,6 +59,15 @@ namespace Edytor
             this.panel1.Size = new System.Drawing.Size(244, 543);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // tipLabel
+            // 
+            this.tipLabel.AutoSize = true;
+            this.tipLabel.Location = new System.Drawing.Point(6, 438);
+            this.tipLabel.Name = "tipLabel";
+            this.tipLabel.Size = new System.Drawing.Size(139, 20);
+            this.tipLabel.TabIndex = 1;
+            this.tipLabel.Text = "Select Tool in Menu";
             // 
             // groupBox1
             // 
@@ -86,14 +97,15 @@ namespace Edytor
             this.drawListView.TabIndex = 0;
             this.drawListView.UseCompatibleStateImageBehavior = false;
             // 
-            // tipLabel
+            // antiCheckBox
             // 
-            this.tipLabel.AutoSize = true;
-            this.tipLabel.Location = new System.Drawing.Point(6, 438);
-            this.tipLabel.Name = "tipLabel";
-            this.tipLabel.Size = new System.Drawing.Size(139, 20);
-            this.tipLabel.TabIndex = 1;
-            this.tipLabel.Text = "Select Tool in Menu";
+            this.antiCheckBox.AutoSize = true;
+            this.antiCheckBox.Location = new System.Drawing.Point(6, 470);
+            this.antiCheckBox.Name = "antiCheckBox";
+            this.antiCheckBox.Size = new System.Drawing.Size(109, 24);
+            this.antiCheckBox.TabIndex = 2;
+            this.antiCheckBox.Text = "Antialiasing";
+            this.antiCheckBox.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -119,6 +131,7 @@ namespace Edytor
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListView drawListView;
         private System.Windows.Forms.Label tipLabel;
+        private System.Windows.Forms.CheckBox antiCheckBox;
     }
 }
 

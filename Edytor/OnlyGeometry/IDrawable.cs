@@ -10,5 +10,7 @@ namespace Edytor.OnlyGeometry
     public interface IDrawable
     {
         public void Draw(Graphics g, DrawSettings drawSettings);
+
+        public void DrawWu(Graphics g, DrawSettings drawSettings);
     }
 }

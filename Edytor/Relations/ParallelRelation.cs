@@ -39,6 +39,18 @@ namespace Edytor.Relations
                 GeometryOperations.EdgeMiddle(RelatedEdge2));
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.DrawString("||",
+                 drawSettings.TextFont,
+                 new SolidBrush(drawSettings.LineColor),
+                 GeometryOperations.EdgeMiddle(RelatedEdge1));
+            g.DrawString("||",
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
+                GeometryOperations.EdgeMiddle(RelatedEdge2));
+        }
+
         public bool IsRelation()
         {
             return (RelatedEdge1.Start.Y - RelatedEdge1.End.Y) * (RelatedEdge2.End.X - RelatedEdge2.Start.X) ==

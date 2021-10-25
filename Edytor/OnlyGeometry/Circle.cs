@@ -36,6 +36,16 @@ namespace Edytor.OnlyGeometry
             }
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            Mid.Draw(g, drawSettings);
+            GraphicsExtention.WuCircle(g, Mid.X, Mid.Y, R, drawSettings.LineColor);
+            if (ReflexiveRelation != null)
+            {
+                ReflexiveRelation.Draw(g, drawSettings);
+            }
+        }
+
         public ISelectable Select(Point point)
         {
             if (GeometryOperations.Distance(point, new Point(Mid.X, Mid.Y)) < R + 4)

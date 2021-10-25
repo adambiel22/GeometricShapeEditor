@@ -19,7 +19,7 @@ namespace Edytor
         public Form1()
         {
             InitializeComponent();
-            toolMenu = new ToolMenu(pictureBox, drawListView);
+            toolMenu = new ToolMenu(pictureBox, drawListView, antiCheckBox);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)

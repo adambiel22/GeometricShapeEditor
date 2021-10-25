@@ -79,5 +79,14 @@ namespace Edytor.OnlyGeometry
         {
             return Relation == null || Relation.IsRelation();
         }
+
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.WuLine(Start, End, IsSelected ? drawSettings.SelectionColor : drawSettings.LineColor);
+            if (Relation != null)
+            {
+                Relation.DrawWu(g, drawSettings);
+            }
+        }
     }
 }

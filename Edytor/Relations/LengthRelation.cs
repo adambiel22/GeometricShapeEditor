@@ -64,6 +64,14 @@ namespace Edytor.Relations
                 GeometryOperations.EdgeMiddle(RelatedEdge));
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.DrawString(length.ToString(),
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
+                GeometryOperations.EdgeMiddle(RelatedEdge));
+        }
+
         public void DisposeRelation()
         {
             RelatedEdge.SetRelation(null);

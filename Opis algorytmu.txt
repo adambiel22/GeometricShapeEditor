@@ -60,3 +60,5 @@ PoprawRelację(r, S):
 	Cofnij zmianę "o".
 	Oznacz, że "o" nie został jeszcze zmieniony.
 	Zwróć fałsz
+
+Nie udało się w pełni zaimplementować tego algorytmu.

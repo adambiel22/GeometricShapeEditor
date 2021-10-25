@@ -40,6 +40,18 @@ namespace Edytor.Relations
                 GeometryOperations.EdgeMiddle(RelatedEdge2));
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.DrawString(RelatedEdge1.Length.ToString(),
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
+                GeometryOperations.EdgeMiddle(RelatedEdge1));
+            g.DrawString(RelatedEdge1.Length.ToString(),
+                drawSettings.TextFont,
+                new SolidBrush(Color.Black),
+                GeometryOperations.EdgeMiddle(RelatedEdge2));
+        }
+
         public bool IsRelation()
         {
             return Math.Abs(RelatedEdge1.Length - RelatedEdge2.Length) <= 1;

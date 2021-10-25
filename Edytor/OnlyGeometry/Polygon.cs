@@ -163,6 +163,18 @@ namespace Edytor.OnlyGeometry
             }
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            foreach (Edge edge in edges)
+            {
+                edge.DrawWu(g, drawSettings);
+            }
+            foreach (Vertex vertex in vertices)
+            {
+                vertex.DrawWu(g, drawSettings);
+            }
+        }
+
         private Scene parentScene;
         public List<Edge> edges;
         public List<PolygonVertex> vertices;

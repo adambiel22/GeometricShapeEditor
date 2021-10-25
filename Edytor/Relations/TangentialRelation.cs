@@ -36,6 +36,18 @@ namespace Edytor.Relations
                 GeometryOperations.EdgeMiddle(RelatedEdge));
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.DrawString("Tang.",
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
+                new Point(RelatedCircle.Mid.X, RelatedCircle.Mid.Y + RelatedCircle.R));
+            g.DrawString("Tang.",
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
+                GeometryOperations.EdgeMiddle(RelatedEdge));
+        }
+
         public bool IsRelation()
         {
             return RelatedCircle.R ==

@@ -50,5 +50,14 @@ namespace Edytor.OnlyGeometry
             return null;
         }
         public abstract void Delete();
+
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.FillEllipse(
+    new SolidBrush(
+        IsSelected ? drawSettings.SelectionColor : drawSettings.VertexColor),
+    new Rectangle(X - drawSettings.VertexRadius, Y - drawSettings.VertexRadius,
+    2 * drawSettings.VertexRadius, 2 * drawSettings.VertexRadius));
+        }
     }
 }

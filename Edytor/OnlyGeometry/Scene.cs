@@ -31,6 +31,14 @@ namespace Edytor.OnlyGeometry
             }
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            foreach (var shape in shapes)
+            {
+                shape.DrawWu(g, drawSettings);
+            }
+        }
+
         public ISelectable SelectShape(Point point)
         {
             foreach (var shape in shapes)

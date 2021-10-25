@@ -16,6 +16,97 @@ namespace Edytor.OnlyGeometry
         {
             g.FillRectangle(new SolidBrush(color), x, y, 1, 1);
         }
+
+        
+
+        public static void WuLine(this Graphics g, Vertex p1, Vertex p2, Color color)
+        {
+            double frac(double y)
+            {
+                return y - Math.Floor(y);
+            }
+
+            if (p1.X == p2.X)
+            {
+                DrawEdge(g, p1, p2, color);
+                return;
+            }
+            
+            if (Math.Abs(p1.Y - p2.Y) < 5*Math.Abs(p1.X - p2.X))
+            {
+                if (p1.X > p2.X)
+                {
+                    (p1, p2) = (p2, p1);
+                }
+                double m = (double)(p1.Y - p2.Y) / (double)(p1.X - p2.X);
+                double y = p1.Y;
+                for (int x = p1.X; x < p2.X; x++)
+                {
+                    double c1 = 1.0 - frac(y);
+                    double c2 = frac(y);
+                    DrawPixel(g, x, (int)y, Color.FromArgb((int)(c1 * color.A), color));
+                    DrawPixel(g, x, (int)y + 1, Color.FromArgb((int)(c2 * color.A), color));
+                    y += m;
+                }
+            }
+            else
+            {
+                DrawEdge(g, p1, p2, color);
+                return;
+                //double m = (double)(p1.Y - p2.Y) / (double)(p1.X - p2.X);
+                //double x = p1.X;
+                //for (int y = p1.Y; y < p2.Y; y += Math.Sign(m))
+                //{
+                //    double c1 = 1.0 - frac(x);
+                //    double c2 = frac(x);
+                //    DrawPixel(g, (int)x, (int)y, Color.FromArgb((int)(c1 * color.A), color));
+                //    DrawPixel(g, (int)x + 1, (int)y, Color.FromArgb((int)(c2 * color.A), color));
+                //    x += 1.0 / m;
+                //}
+            }
+
+        }
+
+        public static void WuCircle(this Graphics g, int x_1, int y_1, int R, Color color)
+        {
+            double D(int R, double y)
+            {
+                return Math.Ceiling(Math.Sqrt(R * R - y * y)) - Math.Sqrt(R * R - y * y);
+            }
+
+            {
+                int x = R;
+                int y = 0;
+                double T = 0;
+                DrawPixel(g, x + x_1, y + y_1, color);
+                while (x > y)
+                {
+                    y++;
+                    if (D(R, y) < T)
+                        x--;
+                    DrawPixel(g, x + x_1, y + y_1, Color.FromArgb((int)((1.0 - (double)D(R, y)) * (double)color.A), color));
+                    DrawPixel(g, x - 1 + x_1, y + y_1, Color.FromArgb((int)(D(R, y) * (double)color.A), color));
+                    T = D(R, y);
+                }
+            }
+            //{
+            //    int x = R;
+            //    int y = 0;
+            //    int i = 1;
+            //    double T = 0;
+            //    DrawPixel(g, x + x_1, y + y_1, color);
+            //    while (x > y)
+            //    {
+            //        y+=1;
+            //        if (D(R, y) < T)
+            //            x-=1;
+            //        DrawPixel(g, x + x_1, y + y_1, Color.FromArgb((int)((1.0 - (double)D(R, y)) * (double)color.A), color));
+            //        DrawPixel(g, x - 1 + x_1, y + y_1, Color.FromArgb((int)(D(R, y) * (double)color.A), color));
+            //        T = D(R, y);
+            //    }
+            //}
+        }
+
         public static void DrawEdge(this Graphics g, Vertex p1, Vertex p2, Color color)
         {
             int dx = p2.X - p1.X;

@@ -30,6 +30,14 @@ namespace Edytor.Relations
                 new Point(RelatedCircle.Mid.X, RelatedCircle.Mid.Y));
         }
 
+        public void DrawWu(Graphics g, DrawSettings drawSettings)
+        {
+            g.DrawString("Fixed",
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
+                new Point(RelatedCircle.Mid.X, RelatedCircle.Mid.Y));
+        }
+
         public bool IsRelation()
         {
             return fixedPoint.X == RelatedCircle.Mid.X && fixedPoint.Y == RelatedCircle.Mid.Y;

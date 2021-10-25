@@ -20,15 +20,17 @@ namespace Edytor
 
         private ListView drawListView;
         private SceneSettings sceneSettings;
+        private CheckBox antiCheckBox;
 
         private Tool activeTool;
 
-        public ToolMenu(PictureBox pb, ListView draw)
+        public ToolMenu(PictureBox pb, ListView draw, CheckBox anti)
         {
             pictureBox = pb;
             scene = predefinedScene();
             drawListView = draw;
             sceneSettings = new SceneSettings();
+            antiCheckBox = anti;
 
             ListViewItem item;
             item = new ListViewItem("Polygon");
@@ -79,6 +81,32 @@ namespace Edytor
 
             pictureBox.Paint += pictureBox_Paint;
             drawListView.SelectedIndexChanged += DrawListView_SelectedIndexChanged;
+            antiCheckBox.CheckedChanged += Anti_CheckedChanged;
+        }
+
+        private void Anti_CheckedChanged(object sender, EventArgs e)
+        {
+            if (antiCheckBox.Checked)
+            {
+                if (activeTool != null) activeTool.Disactivate();
+                pictureBox.Paint -= pictureBox_Paint;
+                pictureBox.Paint += PictureBox_WuPaint;
+                pictureBox.Invalidate();
+            }
+            else
+            {
+                if (activeTool != null) activeTool.Activate();
+                pictureBox.Paint += pictureBox_Paint;
+                pictureBox.Paint -= PictureBox_WuPaint;
+                pictureBox.Invalidate();
+
+            }
+        }
+
+        private void PictureBox_WuPaint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            scene.DrawWu(g, sceneSettings.DrawSettings);
         }
 
         private void DrawListView_SelectedIndexChanged(object sender, EventArgs e)
