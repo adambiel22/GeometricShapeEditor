@@ -1,0 +1,62 @@
+Algorytm ma na celu zaktualizowanie sceny po wykonaniu pewnej akcji, uwzględniając relacje.
+
+Istnieją trzy rodzaje akcji:
+- Przesunięcie zbioru wierzchołków o wektor
+	- ta akcja będzie używana do przesunięcia
+		- jednego wierzchołka
+		- krawędzi, czyli dwóch sąsiadujących wierzchołków
+		- wielokąta
+- Zmiana promienia okręgu
+- Przesunięcie środka okręgu
+
+Istnieją trzy rodzaje obiektów:
+ - promień okręgu
+ - środek okręgu
+ - wierzchołek
+
+Istnieją również następujące relacje (w nawiasach napisane jakich obiektów dotyczy relacja):
+1) zadana długość krawędzi (krawędź - długość)
+2) zadany promień okręgu (okrąg/promień okręgu - długość)
+3) usztywniony środek okręgu (okrąg/środek okręgu - punkt)
+4) równe długości dwóch krawędzi (krawędź - krawędź)
+5) styczność krawędzi (prostej) i okręgu (krawędź - okrąg)
+6) krawędzie równoległe (krawędź - krawędź)
+
+Dla krawędzi może być maksymalnie jedna relacja.
+Dla okręgu nie mogą zachodzić na raz dwie relacje 2) i 3)
+
+Założenia:
+ - Jeśli podczas aktualizacji zmieniono już jakiś obiekt, to nie może być już on zmieniony ponownie.
+ - Będzie to algorytm z powrotami.
+ - Aby poprawić jedną relację algorytm będzie zmieniał tylko jeden obiekt. Na przykłąd jeśli naruszona została relacja równości krawędzi, to zostanie poprawiony jeden z czterech wierzchołków
+
+Opis algorytmu:
+	Wykonaj akcję na zadanych obiektach. 
+	Oznacz wszystkie zadane okiety jako zmienione.
+	Jeśli jakieś relacje zostały popsute w skutek akcji na obiektach, to umieść je na stosie S.
+	if(Rekurencja(S))
+		zwróć, że udalo się porpawić
+	Cofnij akcję na obiektach i zwróć, że nie udało się poprawić.
+
+Rekurencja(S):
+	if (S.Empty())
+		zwróć, że udało się wykonać aktualizację
+	Relacja r = S.Pop()
+	if(PoprawRelację(r, S))
+		zwróć prawda
+	S.Push(r);
+	zwróć fałsz;
+		
+PoprawRelację(r, S):
+	Jeśli nieistnieje obiekt związany z relacją r, który jeszcze nie został zmieniony, to:
+		zwróć fałsz;
+	Niech "o" będzie obiektem związanym z relacją r, który jeszcze nie został zmieniony.
+	Zmień "o" tak aby relacja "r" była spełniona.
+	Oznacz "o" jako zmieniony.
+	Jeśli została naruszona jakaś relacja, to wrzuć je na stos S.
+	if(Rekurencja(R))
+		Zwróć prawda;
+	Zdejmij ze stosu wcześniej wrzucone relacje.
+	Cofnij zmianę "o".
+	Oznacz, że "o" nie został jeszcze zmieniony.
+	Zwróć fałsz

@@ -1,0 +1,13 @@
+Tworzenie wielokątów.
+	- lewy przycisk myszy - dodawanie nowych wierzchołków
+	- prawy przycisk myszy - dodanie ostaniego wierzchołka
+Tworzenie okręgów
+	- Najpierw naciśnij lewym przyciskiem myszy, aby wybrać środek, potem raz jeszcze aby wybrać promień.
+Wybieranie
+	- naciśnij lewym przyciskiem myszy, aby wybrać obiekt.
+	- naciśnij lewym przyciskiem myszy i przesuń, aby przesunąć obiekt.
+	- naciśnij delete, aby usunąć wybrany obiekt.
+Dodawanie relacji
+	- naciśnij lewym przyciskiem myszy obiekty, któe mają być w relacji
+Usuwanie relacji
+	- naciśnij lewym przyciskiem myszy obiekt, dla którego ma być usunięta relacja

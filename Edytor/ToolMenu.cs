@@ -103,7 +103,7 @@ namespace Edytor
             Polygon polygon1 = new Polygon(new Point(200, 200), new Point(400, 215), scene);
             Polygon polygon2 = new Polygon(new Point(800, 200), new Point(800, 400), scene);
             Circle circle1 = new Circle(new Point(200, 400), 40, scene);
-            Circle circle2 = new Circle(new Point(400, 400), 80, scene);
+            Circle circle2 = new Circle(new Point(400, 100), 80, scene);
             scene.AddShape(polygon1);
             scene.AddShape(polygon2);
             scene.AddShape(circle1);
