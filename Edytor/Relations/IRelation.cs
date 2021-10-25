@@ -11,9 +11,9 @@ namespace Edytor.Relations
     {
         public bool IsRelation();
         public bool RecursivelyRepareRelation(
-            List<PolygonVertex> Z,
+            List<ISelectable> Z,
             Stack<IRelation> S,
-            Func<List<PolygonVertex>, Stack<IRelation>, bool> recursiveFunction);
+            Func<List<ISelectable>, Stack<IRelation>, bool> recursiveFunction);
         public void DisposeRelation();
     }
 }

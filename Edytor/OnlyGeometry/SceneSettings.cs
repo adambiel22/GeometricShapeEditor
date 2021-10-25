@@ -7,8 +7,13 @@ using System.Drawing;
 
 namespace Edytor.OnlyGeometry
 {
-    public interface IDrawable
+    public class SceneSettings
     {
-        public void Draw(Graphics g, DrawSettings drawSettings);
+        public DrawSettings DrawSettings { get; set; }
+
+        public SceneSettings()
+        {
+            DrawSettings = new DrawSettings();
+        }
     }
 }

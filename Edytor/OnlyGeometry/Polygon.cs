@@ -14,7 +14,21 @@ namespace Edytor.OnlyGeometry
 
         public int VerticesCount => vertices.Count;
 
-        public bool IsSelected { get; set; }
+        public bool IsSelected
+        {
+            get { return IsSelected; }
+            set
+            {
+                foreach (Edge edge in edges)
+                {
+                    edge.IsSelected = value;
+                }
+                foreach (Vertex vertex in vertices)
+                {
+                    vertex.IsSelected = value;
+                }
+            }
+        }
 
         public Polygon(Point p1, Point p2, Scene scene)
         {
@@ -132,25 +146,25 @@ namespace Edytor.OnlyGeometry
             parentScene.DeleteShape(this);
         }
 
-        public void Move(Point p1, Point p2)
+        public bool Move(Point p1, Point p2)
         {
-            RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex>(vertices), p1, p2);
+            return RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex>(vertices), p1, p2);
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, DrawSettings drawSettings)
         {
-            foreach (Vertex vertex in vertices)
-            {
-                vertex.Draw(g);
-            }
             foreach (Edge edge in edges)
             {
-                edge.Draw(g);
+                edge.Draw(g, drawSettings);
+            }
+            foreach (Vertex vertex in vertices)
+            {
+                vertex.Draw(g, drawSettings);
             }
         }
 
         private Scene parentScene;
-        private List<Edge> edges;
-        private List<PolygonVertex> vertices;
+        public List<Edge> edges;
+        public List<PolygonVertex> vertices;
     }
 }

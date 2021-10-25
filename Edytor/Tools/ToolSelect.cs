@@ -11,9 +11,7 @@ namespace Edytor.Tools
 {
     public class ToolSelect : Tool
     {
-        private ISelectable selectedShape;
-        private Point previousPoint;
-        private Control control;
+
         public ToolSelect(Scene s, PictureBox pb, Control controlArg) : base(s, pb)
         {
             control = controlArg;
@@ -27,6 +25,12 @@ namespace Edytor.Tools
 
         public override void Disactivate()
         {
+            if (selectedShape != null)
+            {
+                selectedShape.IsSelected = false;
+                selectedShape = null;
+                pictureBox.Invalidate();
+            }
             pictureBox.MouseDown -= OnMouseDown;
             control.KeyDown -= DeleteKeyDown;
         }
@@ -51,7 +55,9 @@ namespace Edytor.Tools
                 ISelectable selectable = scene.SelectShape(e.Location);
                 if (selectable != null)
                 {
+                    if (selectedShape != null) selectedShape.IsSelected = false;
                     selectedShape = selectable;
+                    selectedShape.IsSelected = true;
                     previousPoint = e.Location;
                     pictureBox.MouseMove += OnMouseMove;
                     pictureBox.MouseUp += OnMouseUp;
@@ -61,9 +67,14 @@ namespace Edytor.Tools
 
         public void OnMouseMove(object sender, MouseEventArgs e)
         {
-                selectedShape.Move(previousPoint, e.Location);
-                previousPoint = e.Location;
-                pictureBox.Invalidate();
+            if (!selectedShape.Move(previousPoint, e.Location))
+            {
+                pictureBox.MouseMove -= OnMouseMove;
+                pictureBox.MouseUp -= OnMouseUp;
+                MessageBox.Show("Couldn't do this operation");
+            }
+            previousPoint = e.Location;
+            pictureBox.Invalidate();
         }
 
         public void OnMouseUp(object sender, MouseEventArgs e)
@@ -71,5 +82,8 @@ namespace Edytor.Tools
             pictureBox.MouseMove -= OnMouseMove;
             pictureBox.MouseUp -= OnMouseUp;
         }
+        private ISelectable selectedShape;
+        private Point previousPoint;
+        private Control control;
     }
 }

@@ -23,11 +23,11 @@ namespace Edytor.OnlyGeometry
             shapes.Add(shape);
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, DrawSettings drawSettings)
         {
             foreach (var shape in shapes)
             {
-                shape.Draw(g);
+                shape.Draw(g, drawSettings);
             }
         }
 

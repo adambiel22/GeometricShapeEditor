@@ -30,9 +30,9 @@ namespace Edytor.OnlyGeometry
             ParentPolygon.DeleteVertex(this);
         }
 
-        public override void Move(Point start, Point end)
+        public override bool Move(Point start, Point end)
         {
-            RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex> { this }, start, end);
+            return RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex> { this }, start, end);
         }
     }
 }

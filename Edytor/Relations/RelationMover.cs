@@ -11,7 +11,8 @@ namespace Edytor.Relations
 {
     public class RelationMover
     { 
-        public static bool MoveSetOfPolygonVericies(List<PolygonVertex> polygonVertices, Point p1, Point p2) //zbiór wierzchołków oraz typ przesunięcia
+        public static bool MoveSetOfPolygonVericies(List<PolygonVertex> polygonVertices,
+            Point p1, Point p2)
         {
             Stack<IRelation> S = new Stack<IRelation>();
             foreach (PolygonVertex polygonVertex in polygonVertices)
@@ -22,16 +23,21 @@ namespace Edytor.Relations
                 if (!polygonVertex.PrevEdge.IsRelationFullfiled() && !S.Contains(polygonVertex.PrevEdge.Relation))
                     S.Push(polygonVertex.PrevEdge.Relation);
             }
-            return Recursion(polygonVertices, S);
+            return Recursion(new List<ISelectable>(polygonVertices), S);
         }
 
-        public static bool Recursion(List<PolygonVertex> Z, Stack<IRelation> S)
+        public static bool Recursion(List<ISelectable> Z, Stack<IRelation> S)
         {
             if (S.Count == 0) return true;
             IRelation relation = S.Pop();
             if (relation.IsRelation())
                 return Recursion(Z, S);
-            return relation.RecursivelyRepareRelation(Z, S, Recursion);
+            if(!relation.RecursivelyRepareRelation(Z, S, Recursion))
+            {
+                S.Push(relation);
+                return false;
+            }
+            return true;
         }
     }
 }

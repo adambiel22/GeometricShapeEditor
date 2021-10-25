@@ -21,21 +21,21 @@ namespace Edytor.Relations
         }
         public void DisposeRelation()
         {
-            RelatedEdge1.SetRelation(null);
-            RelatedEdge2.SetRelation(null);
+            RelatedEdge1.Relation = null;
+            RelatedEdge2.Relation = null;
             RelatedEdge1 = null;
             RelatedEdge2 = null;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, DrawSettings drawSettings)
         {
             g.DrawString("||",
-                 new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
-                 new SolidBrush(Color.Black),
+                 drawSettings.TextFont,
+                 new SolidBrush(drawSettings.LineColor),
                  GeometryOperations.EdgeMiddle(RelatedEdge1));
             g.DrawString("||",
-                new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
-                new SolidBrush(Color.Black),
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
                 GeometryOperations.EdgeMiddle(RelatedEdge2));
         }
 
@@ -45,7 +45,7 @@ namespace Edytor.Relations
                 (RelatedEdge2.Start.Y - RelatedEdge2.End.Y) * (RelatedEdge1.End.X - RelatedEdge1.Start.X);
         }
 
-        public bool RecursivelyRepareRelation(List<PolygonVertex> Z, Stack<IRelation> S, Func<List<PolygonVertex>, Stack<IRelation>, bool> recursiveFunction)
+        public bool RecursivelyRepareRelation(List<ISelectable> Z, Stack<IRelation> S, Func<List<ISelectable>, Stack<IRelation>, bool> recursiveFunction)
         {
             if (!Z.Contains(RelatedEdge1.Start))
             {

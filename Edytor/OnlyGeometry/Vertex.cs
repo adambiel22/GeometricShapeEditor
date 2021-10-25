@@ -25,15 +25,20 @@ namespace Edytor.OnlyGeometry
             Y = y;
         }
 
-        public virtual void Move(Point start, Point end)
+        public virtual bool Move(Point start, Point end)
         {
             X += end.X - start.X;
             Y += end.Y - start.Y;
+            return true;
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, DrawSettings drawSettings)
         {
-            g.FillEllipse(new SolidBrush(Color.Black), new Rectangle(X - 2, Y - 2, 4, 4));
+            g.FillEllipse(
+                new SolidBrush(
+                    IsSelected ? drawSettings.SelectionColor : drawSettings.VertexColor ),
+                new Rectangle(X - drawSettings.VertexRadius, Y - drawSettings.VertexRadius,
+                2*drawSettings.VertexRadius, 2 * drawSettings.VertexRadius));
         }
 
         public ISelectable Select(Point point)

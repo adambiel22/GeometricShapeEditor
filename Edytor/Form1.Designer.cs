@@ -31,9 +31,9 @@ namespace Edytor
         {
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.selectButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.drawListView = new System.Windows.Forms.ListView();
+            this.tipLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -44,61 +44,69 @@ namespace Edytor
             this.pictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.pictureBox.Location = new System.Drawing.Point(12, 12);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(532, 426);
+            this.pictureBox.Size = new System.Drawing.Size(927, 543);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.selectButton);
+            this.panel1.Controls.Add(this.tipLabel);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(550, 15);
+            this.panel1.Location = new System.Drawing.Point(945, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(244, 422);
+            this.panel1.Size = new System.Drawing.Size(244, 543);
             this.panel1.TabIndex = 1;
-            // 
-            // selectButton
-            // 
-            this.selectButton.Location = new System.Drawing.Point(6, 202);
-            this.selectButton.Name = "selectButton";
-            this.selectButton.Size = new System.Drawing.Size(94, 29);
-            this.selectButton.TabIndex = 1;
-            this.selectButton.Text = "Select";
-            this.selectButton.UseVisualStyleBackColor = true;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.drawListView);
             this.groupBox1.Location = new System.Drawing.Point(0, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(238, 186);
+            this.groupBox1.Size = new System.Drawing.Size(238, 425);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Draw";
+            this.groupBox1.Text = "Menu";
             // 
             // drawListView
             // 
             this.drawListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.drawListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.drawListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.drawListView.HideSelection = false;
             this.drawListView.Location = new System.Drawing.Point(6, 26);
             this.drawListView.MultiSelect = false;
             this.drawListView.Name = "drawListView";
-            this.drawListView.Size = new System.Drawing.Size(226, 154);
+            this.drawListView.Size = new System.Drawing.Size(226, 393);
             this.drawListView.TabIndex = 0;
             this.drawListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // tipLabel
+            // 
+            this.tipLabel.AutoSize = true;
+            this.tipLabel.Location = new System.Drawing.Point(6, 438);
+            this.tipLabel.Name = "tipLabel";
+            this.tipLabel.Size = new System.Drawing.Size(139, 20);
+            this.tipLabel.TabIndex = 1;
+            this.tipLabel.Text = "Select Tool in Menu";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1201, 567);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -109,8 +117,8 @@ namespace Edytor
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button selectButton;
         private System.Windows.Forms.ListView drawListView;
+        private System.Windows.Forms.Label tipLabel;
     }
 }
 

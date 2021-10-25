@@ -22,9 +22,9 @@ namespace Edytor.Relations
             return length == RelatedEdge.Length;
         }
         public bool RecursivelyRepareRelation(
-            List<PolygonVertex> Z,
+            List<ISelectable> Z,
             Stack<IRelation> S,
-            Func<List<PolygonVertex>, Stack<IRelation>, bool> recursiveFunction)
+            Func<List<ISelectable>, Stack<IRelation>, bool> recursiveFunction)
         {
             //sprawdzenie czy pierwszy wierzchołek znajduje się w Z
             if (!Z.Contains(RelatedEdge.Start))
@@ -56,11 +56,11 @@ namespace Edytor.Relations
             
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, DrawSettings drawSettings)
         {
             g.DrawString(length.ToString(),
-                new Font(new FontFamily(GenericFontFamilies.Monospace), 12),
-                new SolidBrush(Color.Black),
+                drawSettings.TextFont,
+                new SolidBrush(drawSettings.LineColor),
                 GeometryOperations.EdgeMiddle(RelatedEdge));
         }
 

@@ -42,7 +42,6 @@ namespace Edytor.Tools
                     firstSelectedEdge = null;
                     pictureBox.Invalidate();
                 }
-
             }
         }
 

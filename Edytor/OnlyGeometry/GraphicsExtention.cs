@@ -12,11 +12,11 @@ namespace Edytor.OnlyGeometry
 {
     public static class GraphicsExtention
     {
-        public static void DrawPixel(this Graphics g, int x, int y)
+        public static void DrawPixel(this Graphics g, int x, int y, Color color)
         {
-            g.FillRectangle(new SolidBrush(Color.Black), x, y, 1, 1);
+            g.FillRectangle(new SolidBrush(color), x, y, 1, 1);
         }
-        public static void DrawEdge(this Graphics g, Vertex p1, Vertex p2)
+        public static void DrawEdge(this Graphics g, Vertex p1, Vertex p2, Color color)
         {
             int dx = p2.X - p1.X;
             int dy = p2.Y - p1.Y;
@@ -25,7 +25,7 @@ namespace Edytor.OnlyGeometry
             int x2 = p2.X;
             int y2 = p2.Y;
 
-            DrawPixel(g, x, y);
+            DrawPixel(g, x, y, color);
             //[0, pi/4)
             if (dx > 0 && dy >= 0 && dy < dx)
             {
@@ -45,7 +45,7 @@ namespace Edytor.OnlyGeometry
                         d += incrNE;
                         y++;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[pi/4, pi/2)
@@ -67,7 +67,7 @@ namespace Edytor.OnlyGeometry
                         d += incrNE;
                         x++;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[pi/2, 3pi/4)
@@ -89,7 +89,7 @@ namespace Edytor.OnlyGeometry
                         d += incrNW;
                         x--;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[3pi/4, pi)
@@ -111,7 +111,7 @@ namespace Edytor.OnlyGeometry
                         d += incrNW;
                         y++;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[pi, 5pi/4)
@@ -133,7 +133,7 @@ namespace Edytor.OnlyGeometry
                         d += incrSW;
                         y--;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[5pi/4, 3pi/2)
@@ -155,7 +155,7 @@ namespace Edytor.OnlyGeometry
                         d += incrSW;
                         x--;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[3pi/2, 7pi/4)
@@ -177,7 +177,7 @@ namespace Edytor.OnlyGeometry
                         d += incrSE;
                         x++;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
             //[7pi/4, 2pi)
@@ -199,7 +199,7 @@ namespace Edytor.OnlyGeometry
                         d += incrSE;
                         y--;
                     }
-                    DrawPixel(g, x, y);
+                    DrawPixel(g, x, y, color);
                 }
             }
         }

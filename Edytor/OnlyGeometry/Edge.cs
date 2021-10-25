@@ -8,12 +8,12 @@ using Edytor.Relations;
 
 namespace Edytor.OnlyGeometry
 {
-    public class Edge : IDrawable, ISelectable
+    public class Edge : IDrawable, ISelectable, IRelatable
     {
         public PolygonVertex Start { get; set; }
         public PolygonVertex End { get; set; }
         public Polygon ParentPolygon { get; set; }
-        public IRelation Relation { get; protected set; }
+        public IRelation Relation { get; set; }
 
         public int Length => GeometryOperations.Distance(Start, End);
 
@@ -43,27 +43,36 @@ namespace Edytor.OnlyGeometry
             ParentPolygon.DeleteVertex(End);
         }
 
-        public void Move(Point p1, Point p2)
+        public bool Move(Point p1, Point p2)
         {
-            RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex> { Start, End }, p1, p2);
+            return RelationMover.MoveSetOfPolygonVericies(new List<PolygonVertex> { Start, End }, p1, p2);
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, DrawSettings drawSettings)
         {
-            g.DrawEdge(Start, End);
+            g.DrawEdge(Start, End, IsSelected ? drawSettings.SelectionColor : drawSettings.LineColor);
             if (Relation != null)
             {
-                Relation.Draw(g);
+                Relation.Draw(g, drawSettings);
             }
         }
 
         public void SetRelation(IRelation relation, bool ifRepare = true)
         {
+            if (relation == null && Relation != null)
+            {
+                Relation.DisposeRelation();
+                Relation = null;
+                return;
+            }
+            if (relation == null) return;
             Relation = relation;
-            if (relation == null || !ifRepare) return;
-            Stack<IRelation> S = new Stack<IRelation>();
-            S.Push(relation);
-            RelationMover.Recursion(new List<PolygonVertex>(), S);
+            if (ifRepare)
+            {
+                Stack<IRelation> S = new Stack<IRelation>();
+                S.Push(relation);
+                RelationMover.Recursion(new List<ISelectable>(), S);
+            }
         }
 
         public bool IsRelationFullfiled()
